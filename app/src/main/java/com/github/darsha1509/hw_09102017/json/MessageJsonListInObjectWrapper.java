@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageJsonListInObjectWrapper implements IMessageJsonList {
+class MessageJsonListInObjectWrapper implements IMessageJsonList {
 
     private static final String LOG_TAG = MessageJsonListInObjectWrapper.class.getSimpleName();
 
@@ -18,7 +18,7 @@ public class MessageJsonListInObjectWrapper implements IMessageJsonList {
 
     private final JSONObject mJSONObject;
 
-    public MessageJsonListInObjectWrapper(JSONObject pJSONObject) {
+    MessageJsonListInObjectWrapper(final JSONObject pJSONObject) {
         mJSONObject = pJSONObject;
     }
 
@@ -28,17 +28,18 @@ public class MessageJsonListInObjectWrapper implements IMessageJsonList {
         try {
             response = mJSONObject.getJSONObject(RESPONSE_OBJECT);
 
-        } catch (JSONException e) {
+        } catch (final JSONException e) {
             Log.e(LOG_TAG, "Error with parse response object");
         }
-        JSONArray jsonArray = response.optJSONArray(MASSAGE_ARRAY);
-        List<MessageJSONWrapper> messages = new ArrayList<>();
+        assert response != null;
+        final JSONArray jsonArray = response.optJSONArray(MASSAGE_ARRAY);
+        final List<MessageJSONWrapper> messages = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                MessageJSONWrapper mes = new MessageJSONWrapper(jsonObject);
+                final JSONObject jsonObject = jsonArray.getJSONObject(i);
+                final MessageJSONWrapper mes = new MessageJSONWrapper(jsonObject);
                 messages.add(mes);
-            } catch (JSONException e) {
+            } catch (final JSONException e) {
                 Log.e(LOG_TAG, "Error with jsonArray");
             }
         }

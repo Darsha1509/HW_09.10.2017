@@ -2,15 +2,15 @@ package com.github.darsha1509.hw_09102017.json;
 
 import com.github.darsha1509.hw_09102017.utils.IOUtils;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.InputStream;
 
-class MessagesJsonListInOjectParser implements IMessageListParser {
+class MessageJsonListParser implements IMessageListParser {
 
     private final InputStream mInputStream;
 
-    MessagesJsonListInOjectParser(final InputStream pInputStream) {
+    MessageJsonListParser(final InputStream pInputStream) {
         mInputStream = pInputStream;
     }
 
@@ -18,8 +18,9 @@ class MessagesJsonListInOjectParser implements IMessageListParser {
     public IMessageJsonList parse() throws Exception {
         final String source = IOUtils.getStringFromStream(mInputStream);
 
-        final JSONObject rootObject = new JSONObject(source);
+        final JSONArray rootArray = new JSONArray(source);
 
-        return new MessageJsonListInObjectWrapper(rootObject);
+        return new MessageJsonListWrapper(rootArray);
+
     }
 }

@@ -11,4 +11,8 @@ class MessageParserFactory {
     IMessageListParser createParserJsonListInObject(final InputStream pSourse){
         return new MessagesJsonListInOjectParser(pSourse);
     }
+
+    IMessageListParser createParserJsonList(final InputStream pSourse){
+        return new MessageJsonListParser(pSourse);
+    }
 }
