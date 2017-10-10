@@ -14,6 +14,7 @@ import org.robolectric.annotation.Config;
 
 import java.io.InputStream;
 
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
@@ -36,7 +37,7 @@ public class MessageParserTest {
     }
 
     @Test
-    public void parseMessage() throws Exception{
+    public void parseMessageObject() throws Exception{
         final InputStream mockedInputStream = Mocks.stream("message/message_object");
         when(mIHttpClient.request(Matchers.anyString())).thenReturn(mockedInputStream);
         final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
@@ -48,5 +49,19 @@ public class MessageParserTest {
         assertEquals(EXPECTED_FROM_WHO_ID, message.getFromWhoId());
         assertEquals(EXPECTED_MESSAGE_TEXT, message.getMessageText());
         assertEquals(EXPECTED_DATE, message.getDate());
+    }
+
+    @Test
+    public void parseMessageListInObject() throws Exception{
+        final InputStream mockedInputStream = Mocks.stream("message/messages_array_with_root_object.json");
+        when(mIHttpClient.request(Matchers.anyString())).thenReturn(mockedInputStream);
+        final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
+
+        final MessageParserFactory messageParserFactory = new MessageParserFactory();
+        final IMessageJsonList messages = messageParserFactory.createParserJsonListInObject(response).parse();
+
+        assertTrue(messages.getMessagesJsonList().size() == 10);
+        assertTrue(messages.getMessagesJsonList().get(2).getId()==EXPECTED_ID);
+        assertEquals(messages.getMessagesJsonList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
     }
 }
