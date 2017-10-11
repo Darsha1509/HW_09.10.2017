@@ -107,4 +107,18 @@ public class MessageParserTest {
         assertTrue(messages.getMessagesList().get(2).getId()==EXPECTED_ID);
         assertEquals(messages.getMessagesList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
     }
+
+    @Test
+    public void parseMessageListInObjectGson() throws Exception{
+        final InputStream mockedInputStream = Mocks.stream("message/messages_array_with_root_object.json");
+        when(mIHttpClient.request(Matchers.anyString())).thenReturn(mockedInputStream);
+        final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
+
+        final MessageParserFactory messageParserFactory = new MessageParserFactory();
+        final IMessageList messages = messageParserFactory.createMessageListWithObjectGsonParser(response).parse();
+
+        assertTrue(messages.getMessagesList().size() == 10);
+        assertTrue(messages.getMessagesList().get(2).getId()==EXPECTED_ID);
+        assertEquals(messages.getMessagesList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
+    }
 }
