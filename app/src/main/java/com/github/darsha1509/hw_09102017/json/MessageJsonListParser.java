@@ -15,12 +15,12 @@ class MessageJsonListParser implements IMessageListParser {
     }
 
     @Override
-    public IMessageJsonList parse() throws Exception {
+    public IMessageList parse() throws Exception {
         final String source = IOUtils.getStringFromStream(mInputStream);
 
         final JSONArray rootArray = new JSONArray(source);
 
-        return new MessageJsonListWrapper(rootArray);
+        return new MessageListWrapper(rootArray);
 
     }
 }

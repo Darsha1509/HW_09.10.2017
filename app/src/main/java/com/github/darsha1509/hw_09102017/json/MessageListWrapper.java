@@ -9,17 +9,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-class MessageJsonListWrapper implements IMessageJsonList {
+class MessageListWrapper implements IMessageList {
 
-    private static final String LOG_TAG = MessageJsonListWrapper.class.getSimpleName();
+    private static final String LOG_TAG = MessageListWrapper.class.getSimpleName();
+
     private final JSONArray mJSONArray;
 
-    MessageJsonListWrapper(final JSONArray pJSONArray) {
+    MessageListWrapper(final JSONArray pJSONArray) {
         mJSONArray = pJSONArray;
     }
 
     @Override
-    public List<MessageJSONWrapper> getMessagesJsonList() {
+    public List<MessageJSONWrapper> getMessagesList() {
         final List<MessageJSONWrapper> messages = new ArrayList<>();
         for (int i = 0; i < mJSONArray.length(); i++) {
             try {

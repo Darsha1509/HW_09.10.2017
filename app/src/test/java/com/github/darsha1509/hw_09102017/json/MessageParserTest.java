@@ -58,11 +58,11 @@ public class MessageParserTest {
         final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
 
         final MessageParserFactory messageParserFactory = new MessageParserFactory();
-        final IMessageJsonList messages = messageParserFactory.createParserJsonListInObject(response).parse();
+        final IMessageList messages = messageParserFactory.createParserJsonListInObject(response).parse();
 
-        assertTrue(messages.getMessagesJsonList().size() == 10);
-        assertTrue(messages.getMessagesJsonList().get(2).getId()==EXPECTED_ID);
-        assertEquals(messages.getMessagesJsonList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
+        assertTrue(messages.getMessagesList().size() == 10);
+        assertTrue(messages.getMessagesList().get(2).getId()==EXPECTED_ID);
+        assertEquals(messages.getMessagesList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
     }
 
     @Test
@@ -72,10 +72,25 @@ public class MessageParserTest {
         final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
 
         final MessageParserFactory messageParserFactory = new MessageParserFactory();
-        final IMessageJsonList messages = messageParserFactory.createParserJsonList(response).parse();
+        final IMessageList messages = messageParserFactory.createParserJsonList(response).parse();
 
-        assertTrue(messages.getMessagesJsonList().size() == 10);
-        assertTrue(messages.getMessagesJsonList().get(2).getId()==EXPECTED_ID);
-        assertEquals(messages.getMessagesJsonList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
+        assertTrue(messages.getMessagesList().size() == 10);
+        assertTrue(messages.getMessagesList().get(2).getId()==EXPECTED_ID);
+        assertEquals(messages.getMessagesList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
+    }
+
+    @Test
+    public void parseGsonMessageObject() throws Exception{
+        final InputStream mockedInputStream = Mocks.stream("message/message_object");
+        when(mIHttpClient.request(Matchers.anyString())).thenReturn(mockedInputStream);
+        final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
+
+        final MessageParserFactory messageParserFactory = new MessageParserFactory();
+        final IMessage message = messageParserFactory.createGsonMessageParser(response).parse();
+
+        assertEquals(EXPECTED_ID, message.getId());
+        assertEquals(EXPECTED_FROM_WHO_ID, message.getFromWhoId());
+        assertEquals(EXPECTED_MESSAGE_TEXT, message.getMessageText());
+        assertEquals(EXPECTED_DATE, message.getDate());
     }
 }
