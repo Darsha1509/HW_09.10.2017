@@ -19,4 +19,8 @@ class MessageParserFactory {
     IMessageParser createGsonMessageParser(final InputStream pSourse){
         return new MessageGsonParser(pSourse);
     }
+
+    IMessageListParser createGsonMessageListParser(final InputStream pSourse){
+        return new MessageListGsonParser(pSourse);
+    }
 }

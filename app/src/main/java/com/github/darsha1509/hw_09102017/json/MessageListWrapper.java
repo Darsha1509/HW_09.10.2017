@@ -20,7 +20,7 @@ class MessageListWrapper implements IMessageList {
     }
 
     @Override
-    public List<MessageJSONWrapper> getMessagesList() {
+    public List<IMessage> getMessagesList() {
         final List<MessageJSONWrapper> messages = new ArrayList<>();
         for (int i = 0; i < mJSONArray.length(); i++) {
             try {
@@ -31,6 +31,9 @@ class MessageListWrapper implements IMessageList {
                 Log.e(LOG_TAG, "Error with jsonArray");
             }
         }
-        return messages;
+
+        List<IMessage> messagesArray  = new ArrayList<>();
+        messagesArray.addAll(messages);
+        return messagesArray;
     }
 }

@@ -93,4 +93,18 @@ public class MessageParserTest {
         assertEquals(EXPECTED_MESSAGE_TEXT, message.getMessageText());
         assertEquals(EXPECTED_DATE, message.getDate());
     }
+
+    @Test
+    public void parseMessageListGson() throws Exception{
+        final InputStream mockedInputStream = Mocks.stream("message/messages_array.json");
+        when(mIHttpClient.request(Matchers.anyString())).thenReturn(mockedInputStream);
+        final InputStream response = mIHttpClient.request("http://myBackend/getMessage");
+
+        final MessageParserFactory messageParserFactory = new MessageParserFactory();
+        final IMessageList messages = messageParserFactory.createGsonMessageListParser(response).parse();
+
+        assertTrue(messages.getMessagesList().size() == 10);
+        assertTrue(messages.getMessagesList().get(2).getId()==EXPECTED_ID);
+        assertEquals(messages.getMessagesList().get(2).getMessageText(), EXPECTED_MESSAGE_TEXT);
+    }
 }

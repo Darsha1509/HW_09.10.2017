@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IMessageList {
 
-    List<MessageJSONWrapper> getMessagesList();
+    List<IMessage> getMessagesList();
 }

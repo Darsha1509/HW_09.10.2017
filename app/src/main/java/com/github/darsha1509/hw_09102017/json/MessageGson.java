@@ -16,9 +16,6 @@ class MessageGson implements IMessage{
     @SerializedName("date")
     private long mDate;
 
-    MessageGson() {
-    }
-
     @Override
     public long getId() {
         return mId;
