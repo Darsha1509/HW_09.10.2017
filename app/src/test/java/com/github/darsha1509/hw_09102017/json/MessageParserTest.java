@@ -29,7 +29,7 @@ public class MessageParserTest {
     private static final int EXPECTED_ID = 34853;
     private static final int EXPECTED_FROM_WHO_ID = 21402356;
     private static final String EXPECTED_MESSAGE_TEXT="Привет)";
-    private static final int EXPECTED_DATE=1507369828;
+    private static final String EXPECTED_DATE="Sun Jan 18 13:42:49 MSK 1970";
 
     @Before
     public void setUp(){

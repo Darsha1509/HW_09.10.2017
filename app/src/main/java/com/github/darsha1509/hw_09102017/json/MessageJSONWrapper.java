@@ -2,6 +2,8 @@ package com.github.darsha1509.hw_09102017.json;
 
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class MessageJSONWrapper implements IMessage{
 
     private static final String ID="id";
@@ -31,7 +33,8 @@ public class MessageJSONWrapper implements IMessage{
     }
 
     @Override
-    public long getDate() {
-        return mJSONObject.optLong(DATE);
+    public String getDate() {
+
+        return new Date(mJSONObject.optLong(DATE)).toString();
     }
 }

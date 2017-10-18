@@ -2,6 +2,8 @@ package com.github.darsha1509.hw_09102017.json;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 class MessageGson implements IMessage{
 
     @SerializedName("id")
@@ -32,7 +34,8 @@ class MessageGson implements IMessage{
     }
 
     @Override
-    public long getDate() {
-        return mDate;
+    public String getDate() {
+
+        return new Date(mDate).toString();
     }
 }

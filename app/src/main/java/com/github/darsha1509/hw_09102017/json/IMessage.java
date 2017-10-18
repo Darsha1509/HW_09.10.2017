@@ -8,6 +8,6 @@ interface IMessage {
 
     String getMessageText();
 
-    long getDate();
+    String getDate();
 
 }
