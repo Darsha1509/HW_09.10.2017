@@ -16,7 +16,7 @@ class MessageGson implements IMessage{
     private String mMessageText;
 
     @SerializedName("date")
-    private long mDate;
+    private String mDate;
 
     @Override
     public long getId() {
@@ -35,7 +35,22 @@ class MessageGson implements IMessage{
 
     @Override
     public String getDate() {
+        return  mDate;
+    }
 
-        return new Date(mDate).toString();
+    public void setDate(String pDate) {
+        mDate = pDate;
+    }
+
+    public void setId(long pId) {
+        mId = pId;
+    }
+
+    public void setFromWhoId(long pFromWhoId) {
+        mFromWhoId = pFromWhoId;
+    }
+
+    public void setMessageText(String pMessageText) {
+        mMessageText = pMessageText;
     }
 }
